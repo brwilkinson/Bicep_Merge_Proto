@@ -4,7 +4,7 @@ Prototype for merging current and new config in Bicep
 
 Sample merging VNET configurations
 
-I would not recommend to do this, however it does work
+I would not recommend to do this, however it does work.
 
 I do use a similar approach to merge a single Object, such as App Configuration on App Service.
 
