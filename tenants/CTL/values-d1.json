@@ -45,7 +45,7 @@
       "value": []
     },
     "AllowMergeConfig": {
-      "value": false
+      "value": true
     }
   }
 }
