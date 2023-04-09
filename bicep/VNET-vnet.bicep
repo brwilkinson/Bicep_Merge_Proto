@@ -39,10 +39,10 @@ var SNCurrent = [for (item, index) in SubnetInfoCurrent: {
   name: item.name
   properties: {
     addressPrefix: item.properties.addressPrefix
-    networkSecurityGroup: item.properties.networkSecurityGroup
-    natGateway: item.properties.natGateway
-    privateEndpointNetworkPolicies: item.properties.privateEndpointNetworkPolicies
-    privateLinkServiceNetworkPolicies: item.properties.privateLinkServiceNetworkPolicies
+    networkSecurityGroup: item.properties.?networkSecurityGroup //optional
+    natGateway: item.properties.?natGateway //optional
+    privateEndpointNetworkPolicies: item.properties.?privateEndpointNetworkPolicies //optional
+    privateLinkServiceNetworkPolicies: item.properties.?privateLinkServiceNetworkPolicies //optional
     // serviceEndpoints: item.properties.serviceEndpoints
     // delegations: item.properties.delegations
     // routeTable: item.properties.routeTable
