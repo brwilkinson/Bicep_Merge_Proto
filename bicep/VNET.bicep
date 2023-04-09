@@ -26,3 +26,7 @@ module dp_Deployment_VNET 'VNET-vnet.bicep' = {
     addressPrefixesCurrent: currentAddress
   }
 }
+
+output mergedDNSServers array = dp_Deployment_VNET.outputs.mergedDNSServers
+output mergedSubnets array = dp_Deployment_VNET.outputs.mergedSubnets
+output mergedAddressPrefix array = dp_Deployment_VNET.outputs.mergedAddressPrefix

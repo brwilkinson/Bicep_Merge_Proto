@@ -89,8 +89,9 @@ resource VNET 'Microsoft.Network/virtualNetworks@2022-01-01' = {
 output vNETName string = vNETName
 output addressPrefixes array = addressPrefixes
 output SubnetInfo array = SubnetInfo
-output DNSServers array = DNSServers
 output SNCurrent array = SNCurrent
 output subnetsNew array = subnetsNew
-output merged array = union(SNCurrent, subnetsNew)
+
+output mergedDNSServers array = DNSServers
+output mergedSubnets array = union(SNCurrent, subnetsNew)
 output mergedAddressPrefix array = union(addressPrefixes,addressPrefixesCurrent)

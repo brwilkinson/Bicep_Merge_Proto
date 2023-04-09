@@ -46,5 +46,8 @@ module dp_Deployment_VNET 'VNET.bicep' = {
 
 output exists bool = testResourcExists.outputs.Exists
 output ResourceId string = testResourcExists.outputs.ResourceId
-output vnetid string = VNET.id
+
+output mergedDNSServers array = dp_Deployment_VNET.outputs.mergedDNSServers
+output mergedSubnets array = dp_Deployment_VNET.outputs.mergedSubnets
+output mergedAddressPrefix array = dp_Deployment_VNET.outputs.mergedAddressPrefix
 
