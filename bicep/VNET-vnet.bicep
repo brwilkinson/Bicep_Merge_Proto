@@ -73,7 +73,6 @@ var subnetsNew = [for (sn, index) in SubnetInfo: {
 
 resource VNET 'Microsoft.Network/virtualNetworks@2022-01-01' = {
   name: vNETName
-  #disable-next-line no-loc-expr-outside-params
   location: resourceGroup().location
   properties: {
     addressSpace: {

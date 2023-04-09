@@ -6,6 +6,9 @@
   "analyzers": {
     "core": {
       "rules": {
+        "no-loc-expr-outside-params": {
+          "level": "off"
+        },
         "no-unused-params": {
           "level": "warning"
         }
