@@ -12,3 +12,9 @@ I do use a similar approach to merge a single Object, such as App Configuration 
 
 This prototype does rely on the ability to detect if a resource exists via the DeploymentScript.
 - By using this it works on a new or existing scenario.
+
+---
+
+> This is currently blocked with extensibility, however works without extensibility
+> https://github.com/Azure/bicep/issues/10097
+> cannot lookup to see if existing exists or not, since the resource is always evaluated.

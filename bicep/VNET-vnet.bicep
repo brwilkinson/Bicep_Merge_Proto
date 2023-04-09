@@ -2,7 +2,7 @@ param deployment string
 param deploymentID string
 param vNETName string
 param DNSServers array
-param addressPrefixes array
+param addressPrefixesCurrent array
 param SubnetInfo array
 param SubnetInfoCurrent array
 
@@ -18,6 +18,10 @@ var networkId = {
   upper: '${network.first}.${network.second - (8 * int(regionNumber)) + AppId}'
   lower: '${network.third - (8 * int(deploymentID))}'
 }
+
+var addressPrefixes = [
+  '${networkId.upper}.${networkId.lower}.0/21'
+]
 
 var lowerLookup = {
   snWAF01: 1
@@ -45,6 +49,8 @@ var SNCurrent = [for (item, index) in SubnetInfoCurrent: {
   }
 }]
 
+// Ensure propeties above and below match to ensure success in union()
+
 var subnetsNew = [for (sn, index) in SubnetInfo: {
   name: sn.name
   properties: {
@@ -71,7 +77,7 @@ resource VNET 'Microsoft.Network/virtualNetworks@2022-01-01' = {
   location: resourceGroup().location
   properties: {
     addressSpace: {
-      addressPrefixes: addressPrefixes
+      addressPrefixes: union(addressPrefixes,addressPrefixesCurrent)
     }
     dhcpOptions: {
       dnsServers: array(DNSServers)
@@ -87,3 +93,4 @@ output DNSServers array = DNSServers
 output SNCurrent array = SNCurrent
 output subnetsNew array = subnetsNew
 output merged array = union(SNCurrent, subnetsNew)
+output mergedAddressPrefix array = union(addressPrefixes,addressPrefixesCurrent)

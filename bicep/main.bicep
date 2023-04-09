@@ -11,8 +11,6 @@ param DeploymentId string
 
 param SubnetInfo array
 param DNSServers array
-param addressPrefixes array
-
 
 var deployment = '${prefix}-${orgName}-${appName}-${Environment}${DeploymentId}'
 var vNETName = '${deployment}-vn'
@@ -21,33 +19,32 @@ resource VNET 'Microsoft.Network/virtualNetworks@2022-09-01' existing = {
   name: vNETName
 }
 
-// This is currently blocked by below
-
+// This is currently blocked with extensibility, however works without extensibility
 // https://github.com/Azure/bicep/issues/10097
+// cannot lookup to see if existing exists or not, since the resource is always evaluated.
 
 
-// module testResourcExists 'x.testResourceExists.ps1.bicep' = {
-//   name: 'testResourcExists-${vNETName}'
-//   params: {
-//     resourceId: VNET.id
-//     userAssignedIdentityName: 'AEU1-PE-CTL-D1-uaiReader'
-//   }
-// }
+module testResourcExists 'x.testResourceExists.ps1.bicep' = {
+  name: 'testResourcExists-${vNETName}'
+  params: {
+    resourceId: VNET.id
+    userAssignedIdentityName: 'AEU1-PE-CTL-D1-uaiReader'
+  }
+}
 
-// module dp_Deployment_VNET 'VNET.bicep' = {
-//   name: 'dp${deployment}-VNET'
-//   params: {
-//     deployment: deployment
-//     deploymentID: DeploymentId
-//     vNETName: vNETName
-//     SubnetInfo: SubnetInfo
-//     DNSServers: DNSServers
-//     addressPrefixes: addressPrefixes
-//     setVNETCurrent: testResourcExists.outputs.Exists
-//   }
-// }
+module dp_Deployment_VNET 'VNET.bicep' = {
+  name: 'dp${deployment}-VNET'
+  params: {
+    deployment: deployment
+    deploymentID: DeploymentId
+    vNETName: vNETName
+    SubnetInfo: SubnetInfo
+    DNSServers: DNSServers
+    setVNETCurrent: testResourcExists.outputs.Exists
+  }
+}
 
-// output exists bool = testResourcExists.outputs.Exists
-// output ResourceId string = testResourcExists.outputs.ResourceId
+output exists bool = testResourcExists.outputs.Exists
+output ResourceId string = testResourcExists.outputs.ResourceId
 output vnetid string = VNET.id
 

@@ -3,7 +3,6 @@ param deploymentID string
 param vNETName string
 param DNSServers array
 param SubnetInfo array
-param addressPrefixes array
 param setVNETCurrent bool
 
 
@@ -13,6 +12,7 @@ resource VNET 'Microsoft.Network/virtualNetworks@2022-09-01' existing = {
 
 var currentAddress = setVNETCurrent ? VNET.properties.addressSpace.addressPrefixes: []
 var currentDNS = setVNETCurrent ? VNET.properties.dhcpOptions.dnsServers : []
+var currentSubnet = setVNETCurrent ? VNET.properties.subnets : []
 
 module dp_Deployment_VNET 'VNET-vnet.bicep' = {
   name: 'dp${deployment}-VNET-union'
@@ -21,8 +21,8 @@ module dp_Deployment_VNET 'VNET-vnet.bicep' = {
     deploymentID: deploymentID
     vNETName: vNETName
     DNSServers: union(DNSServers,currentDNS)
-    addressPrefixes: union(addressPrefixes,currentAddress)
     SubnetInfo: SubnetInfo
-    SubnetInfoCurrent: setVNETCurrent ? VNET.properties.subnets : []
+    SubnetInfoCurrent: currentSubnet
+    addressPrefixesCurrent: currentAddress
   }
 }
