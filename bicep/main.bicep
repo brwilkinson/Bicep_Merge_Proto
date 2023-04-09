@@ -12,6 +12,8 @@ param DeploymentId string
 param SubnetInfo array
 param DNSServers array
 
+param AllowMergeConfig bool
+
 var deployment = '${prefix}-${orgName}-${appName}-${Environment}${DeploymentId}'
 var vNETName = '${deployment}-vn'
 
@@ -24,7 +26,7 @@ resource VNET 'Microsoft.Network/virtualNetworks@2022-09-01' existing = {
 // cannot lookup to see if existing exists or not, since the resource is always evaluated.
 
 
-module testResourcExists 'x.testResourceExists.ps1.bicep' = {
+module testResourcExists 'x.testResourceExists.ps1.bicep' = if(AllowMergeConfig) {
   name: 'testResourcExists-${vNETName}'
   params: {
     resourceId: VNET.id
@@ -41,6 +43,7 @@ module dp_Deployment_VNET 'VNET.bicep' = {
     SubnetInfo: SubnetInfo
     DNSServers: DNSServers
     setVNETCurrent: testResourcExists.outputs.Exists
+    AllowMergeConfig: AllowMergeConfig
   }
 }
 

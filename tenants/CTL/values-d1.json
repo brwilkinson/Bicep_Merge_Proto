@@ -43,6 +43,9 @@
     },
     "DNSServers": {
       "value": []
+    },
+    "AllowMergeConfig": {
+      "value": false
     }
   }
 }

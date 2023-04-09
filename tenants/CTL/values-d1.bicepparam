@@ -30,3 +30,7 @@ param SubnetInfo = [
 ]
 
 param DNSServers = []
+
+// If you set this to false then settings in Azure will be overwritten
+// default this to true to merge configurations
+param AllowMergeConfig = false

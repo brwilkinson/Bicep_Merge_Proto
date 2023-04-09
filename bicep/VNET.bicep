@@ -4,6 +4,7 @@ param vNETName string
 param DNSServers array
 param SubnetInfo array
 param setVNETCurrent bool
+param AllowMergeConfig bool
 
 
 resource VNET 'Microsoft.Network/virtualNetworks@2022-09-01' existing = {
@@ -20,10 +21,10 @@ module dp_Deployment_VNET 'VNET-vnet.bicep' = {
     deployment: deployment
     deploymentID: deploymentID
     vNETName: vNETName
-    DNSServers: union(DNSServers,currentDNS)
+    DNSServers: AllowMergeConfig ? union(DNSServers,currentDNS) : DNSServers
     SubnetInfo: SubnetInfo
-    SubnetInfoCurrent: currentSubnet
-    addressPrefixesCurrent: currentAddress
+    SubnetInfoCurrent: AllowMergeConfig ? currentSubnet : []
+    addressPrefixesCurrent: AllowMergeConfig ? currentAddress : []
   }
 }
 
