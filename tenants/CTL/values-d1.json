@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "prefix": {
+      "value": "AEU1"
+    },
+    "orgName": {
+      "value": "PE"
+    },
+    "appName": {
+      "value": "CTL"
+    },
+    "Environment": {
+      "value": "D"
+    },
+    "DeploymentId": {
+      "value": "2"
+    },
+    "SubnetInfo": {
+      "value": [
+        {
+          "name": "snMT01",
+          "NSGRuleName": "AKS-WEB",
+          "prefix": "0/23",
+          "NSG": 1,
+          "Route": 0,
+          "FlowLogEnabled": 0,
+          "FlowAnalyticsEnabled": 0,
+          "NGW": 1
+        },
+        {
+          "name": "snMT02",
+          "NSGRuleName": "AKS-WEB",
+          "prefix": "0/23",
+          "NSG": 1,
+          "Route": 0,
+          "FlowLogEnabled": 1,
+          "FlowAnalyticsEnabled": 1,
+          "NGW": 1
+        }
+      ]
+    },
+    "DNSServers": {
+      "value": []
+    },
+    "addressPrefixes": {
+      "value": []
+    }
+  }
+}

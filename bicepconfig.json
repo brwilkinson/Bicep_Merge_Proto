@@ -1,0 +1,15 @@
+{
+  "experimentalFeaturesEnabled": {
+    // "paramsFiles": true,
+    "extensibility": true
+  },
+  "analyzers": {
+    "core": {
+      "rules": {
+        "no-unused-params": {
+          "level": "warning"
+        }
+      }
+    }
+  }
+}
