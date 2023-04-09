@@ -1,7 +1,7 @@
 {
   "experimentalFeaturesEnabled": {
     "paramsFiles": true,
-    "extensibility": false
+    "extensibility": false // breaks existing where no resource exists.
   },
   "analyzers": {
     "core": {
